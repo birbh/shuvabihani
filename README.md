@@ -86,11 +86,24 @@ The normal clock fails because a delay()  pauses the entire mcu. So shuvabihani 
 ## Images:
 ### CAD:
 1. Photos:
+<img width="507" height="446" alt="Screenshot 2026-10-31 at 7 15 26 PM" src="https://github.com/user-attachments/assets/2f681aca-a68e-4c06-87ca-3401eebc87db" />
+<img width="735" height="634" alt="Screenshot 2026-10-31 at 7 15 15 PM" src="https://github.com/user-attachments/assets/599fef00-016c-45c7-ad78-2f42d504d367" />
+<img width="590" height="420" alt="Screenshot 2026-10-31 at 7 15 07 PM" src="https://github.com/user-attachments/assets/77df31de-8eca-4797-a749-7306892d6c0c" />
+
+
 
 2. Link:
 [FUSION 360](https://a360.co/4z7ZS5Q)
 
 ### PCB: 
+<img width="1038" height="665" alt="Screenshot 2026-10-31 at 7 07 07 PM" src="https://github.com/user-attachments/assets/02c22608-3c79-43f7-9e63-371d3ad59cb7" />
+<img width="644" height="434" alt="Screenshot 2026-10-31 at 7 07 53 PM" src="https://github.com/user-attachments/assets/c9ce1a3c-6942-4688-9c38-15938b006dc5" />
+<img width="651" height="428" alt="Screenshot 2026-10-31 at 7 08 11 PM" src="https://github.com/user-attachments/assets/4630f5bd-4089-448a-8731-45eda770f79e" />
+<img width="678" height="425" alt="Screenshot 2026-10-31 at 7 09 25 PM" src="https://github.com/user-attachments/assets/3539acea-47f6-4a9c-9458-dec75060c467" />
+<img width="717" height="420" alt="Screenshot 2026-10-31 at 7 09 16 PM" src="https://github.com/user-attachments/assets/ab794f22-84cb-4999-9097-59f45d3f75c7" />
+
+
+
 
 
 ## Credits:
