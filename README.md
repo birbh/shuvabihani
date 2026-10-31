@@ -1,133 +1,97 @@
 # shuvabihani
 
+Shuvabihani is a custom esp32-c3 environmental dashboard and smart alarm clock featuring a WIFI ntp sync with the mx switch inputs and BME680 air quality monitoring. 
 
-#include <Adafruit_GFX.h>    // Core graphics library
-#include <Adafruit_ST7789.h> // Hardware-specific library for ST7789
-#include <SPI.h>
-#include <Wire.h>
-#include <Adafruit_Sensor.h>
-#include "Adafruit_BME680.h"
+## Overview:
+Shuvabihani is a Hackclub-BLARE inspired smart alarm clock which introduces ntp time syncing with multi alarm state function. Also this clock measures the environmental state like temperature,humidity and gas resistance and displays the real data in the clock. Also it has some cool smart features like master kill switch that disables all alarms set in the clock. 
 
-// --- Component Pin Definitions (XIAO ESP32-C3) ---
-#define TFT_SCLK D9
-#define TFT_MOSI D10
-#define TFT_DC   D4
-#define TFT_CS   D5
-#define TFT_RST  -1  // Hardwired to 3.3V in schematic
+### Features:
 
-#define I2C_SDA  D6
-#define I2C_SCL  D8
+1. NTP-synced time:
+    The clock automatically connects to your home wifi and fetches the precise local time which eliminates the manual clock drift. 
 
-#define SW1 D3
-#define SW2 D2
-#define SW3 D1
-#define SW4 D0
+2. Environmental Features:
+    It integrates a BME680 sensor to track the temperature, humidity and VOC gas resistance and displays in human readable air quaity ratings. (fresh,fair,poor)
 
-#define BUZZER_PIN D7
+3. Multi alarms:
+    The clock supports uoto 5 configurable alarms with onboard UI menu to set hour, min. and active states.
 
-// --- Hardware Objects ---
-Adafruit_BME680 bme; // BME680 over I2C
+4. Programmed inputs:
+    The clock uses the four mx switch in the back very efficiently by using multi button combinations for complex actions like snooze and other normal toggles replacing the need of more buttons and switches.
 
-// Fix setColRowStart() by exposing it via a subclass (from reference)
-class MyST7789 : public Adafruit_ST7789 {
-public:
-  MyST7789(int8_t cs, int8_t dc, int8_t mosi, int8_t sclk, int8_t rst)
-    : Adafruit_ST7789(cs, dc, mosi, sclk, rst) {}
-  void setOffsets(uint8_t col, uint8_t row) {
-    _colstart = _colstart2 = col;
-    _rowstart = _rowstart2 = row;
-  }
-};
+### Basic clock functions:
 
-MyST7789 tft(TFT_CS, TFT_DC, TFT_MOSI, TFT_SCLK, TFT_RST);
+The clock uses 4 MX switches for navigation and the alarm control.
 
-void setup() {
-  Serial.begin(115200);
-  
-  // 1. Initialize Buzzer
-  pinMode(BUZZER_PIN, OUTPUT);
-  digitalWrite(BUZZER_PIN, LOW);
+- SW1(bottom-left): Up / Increase time
+- SW2(bottom-right): Down / Decrease time
+- SW3(top-left): Select / Enter Menu
+- SW4(bottom-right): Back / Cancel
+- Dismiss/Stop Alarm: Press SW1+SW4 simultaneously
+- Snooze Alarm(5 mins.): Press SW2+SW3 simultaneously
+- Master kill switch: Press SW1+SW4 from the clock screen to disable all alarms.(note: this will work only when you are in clock screen)  
 
-  // 2. Initialize MX Switches with Internal Pull-ups
-  pinMode(SW1, INPUT_PULLUP);
-  pinMode(SW2, INPUT_PULLUP);
-  pinMode(SW3, INPUT_PULLUP);
-  pinMode(SW4, INPUT_PULLUP);
+## Hardware assembly and flashing
 
-  // 3. Initialize TFT Display
-  // Note: Backlight (BL) is hardwired to 3.3V, so it turns on automatically
-  tft.init(76, 284);             // Base panel size from reference
-  tft.setOffsets(82, 18);        // Offsets for specific screen boundaries
-  tft.invertDisplay(false);      // Flipped colors configuration
-  tft.setRotation(1);            // Landscape mode
-  tft.fillScreen(ST77XX_BLACK);
-  Serial.println("TFT Initialized!");
+### 1. Mounting the pcb and components into enclosure:
 
-  // 4. Initialize I2C and BME680
-  Wire.begin(I2C_SDA, I2C_SCL);
-  
-  // 0x76 is the standard I2C address for the BME680 when SDO is tied to GND
-  if (!bme.begin(0x76)) {
-    Serial.println("Could not find a valid BME680 sensor, check wiring!");
-    tft.setTextColor(ST77XX_RED);
-    tft.setTextSize(2);
-    tft.setCursor(10, 10);
-    tft.print("BME680 Error!");
-    while (1); 
-  }
+- Solder the all smd and tht components as required in pcb.
+- There are mounting holes in the pcb. So fabricate the pcb and mount them into the base using 4xM3 screws. 
+- The front part with display is a bit tricky. You need to mount both the display and the front enclosure into the base using the 2xM2.5 screws at the same time as in the 3Dmodel.
+- The front lid is mounted into the base using the 2xM3 screws in the left part and the right part is adjusted automatically with the display mounts.
+- And the back part is adjusted by screwing a M3 screws in the middle-top then the 4xM1 screws.
+- Then the last part the keycaps are auto adjusted as i have made the different mounting holes for 4 switches which can be inserted as in mechanical keyboard.
 
-  // Set up oversampling and filter initialization for BME680
-  bme.setTemperatureOversampling(BME680_OS_8X);
-  bme.setHumidityOversampling(BME680_OS_2X);
-  bme.setPressureOversampling(BME680_OS_4X);
-  bme.setIIRFilterSize(BME680_FILTER_SIZE_3);
-  bme.setGasHeater(320, 150); // 320°C for 150 ms
-}
+### 2. Firmware update and dependencies:
 
-void loop() {
-  // Read sensor data
-  if (!bme.performReading()) {
-    Serial.println("Failed to perform reading :(");
-    return;
-  }
+You must install these dependencies in your cpp env. or Arduino ide before flashing the code.
+- `Adafruit_GFX`
+- `Adafruit_ST7789`
+- `Adafruit_BME680`
+- `Adafruit_Sensor`
+- `WiFi`
+- `SPI`
+- `Wire`
 
-  // Draw UI Background (only overwrite text areas to prevent flickering)
-  tft.fillRect(0, 0, 240, 135, ST77XX_BLACK); 
-  
-  tft.setTextColor(ST77XX_WHITE);
-  tft.setTextSize(2);
+Also note that you must update your WiFi password and ssid in the firmware before flashing so that the time auto updates fron ntp connecting to your wifi.
+code:
+``` cpp
+    const char* ssid ="insert_ssid_of_wifi";
+    const char* password ="insert_password_of_wifi";
+```
 
-  // Display Temperature
-  tft.setCursor(10, 10);
-  tft.print("Temp: ");
-  tft.print(bme.temperature);
-  tft.print(" C");
+Also you should update your `gmtOffset_sec` in the code so that it matches with your country's code. For eg: 
 
-  // Display Humidity
-  tft.setCursor(10, 40);
-  tft.print("Humidity: ");
-  tft.print(bme.humidity);
-  tft.print(" %");
+``` cpp 
+    const long  gmtOffset_sec = 20700; // GMT+5:45 for  Nepal my country(put your country's gmt respectively here)
+```
 
-  // Display Gas Resistance (VOCs)
-  tft.setCursor(10, 70);
-  tft.print("VOCs: ");
-  tft.print(bme.gas_resistance / 1000.0);
-  tft.print(" kOhm");
+### 3. Flashing the Esp32-c3:
+1. Open firmware.ino in the firmware folder in arduino ide.
+2. Update the wifi credentials and the timezone gmt in firmware.
+3. Select Xiao-esp32c3 as your boarrd.
+4. Compile and upload using usb-c.
 
-  // Input Handling: If SW4 is pressed, sound the buzzer and show alert
-  if (digitalRead(SW4) == LOW) {
-    digitalWrite(BUZZER_PIN, HIGH);
-    
-    tft.setTextColor(ST77XX_RED);
-    tft.setCursor(10, 100);
-    tft.print("ALARM TRIGGERED!");
-    
-    delay(200); // Debounce / Buzzer active time
-    digitalWrite(BUZZER_PIN, LOW);
-  }
+## How it Works:
 
-  // Add more button actions for SW1, SW2, SW3 here as needed
+The main working principle of the clock is inspired from [Hack Club BLARE](https://blare.hackclub.com/) but i have modified some things and they are:
 
-  delay(2000); // Wait 2 seconds between environmental reads
-}
+1. I2C/SPI Pin Constraint:
+The standard xiao ESP32-C3 has 11 usable pins. so to support a high res. TFT display, I2C environmental sensor, 4 mechanical switches, and piezo buzzer,a strict pin economy was required. So the display's Reset and Backlight lines are hardwired to the 3.3V power traces on the PCB. This helped two pins (D6 and D8) to be used as  custom I2C bus for the BME680 without dropping any other components.
+
+2. UI change:
+The normal clock fails because a delay()  pauses the entire mcu. So shuvabihani uses a non blocking loop and a certain UI states (like CLOCK_VIEW, MENU_SELECT_ALARM, MENU_SET_HOUR, etc.). This thing allows the clock to pulse buzzer, fetch NTP data, read  BME680 , and listen for multi-button  inputs simultaneously without freezing the UI.
+
+
+## Images:
+### CAD:
+1. Photos:
+
+2. Link:
+[FUSION 360](https://a360.co/4z7ZS5Q)
+
+### PCB: 
+
+
+## Credits:
+- [Hack Club BLARE](https://blare.hackclub.com/): For the hardware inspiration.

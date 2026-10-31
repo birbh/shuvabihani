@@ -1,7 +1,11 @@
-﻿Designator,Footprint,Quantity,Value,LCSC Part #
-BZ1,Buzzer_12x9.5RM7.6,1,Buzzer,
-DISPLAY1,PinSocket_1x08_P2.54mm_Vertical,1,Conn_01x08_Pin,
-"R1, R2",0805,2,4.7k,
-"SW1, SW2, SW3, SW4",SW_Cherry_MX_1.00u_PCB,4,SW_Push,
-U1,XIAO-ESP32-C3-DIP,1,XIAO-ESP32-C3-SMD,
-U2,module_bme680,1,module_bme680,
+﻿Designator,Footprint,Quantity,Value,Price,Links
+BZ1,Buzzer_12x9.5RM7.6,1,Buzzer,$4.1,https://shorturl.at/ukQmH
+DISPLAY1,PinSocket_1x08_P2.54mm_Vertical,1,2.25in TFT Screen,$5.1,https://www.ebay.com/itm/365663709567
+"R1, R2",0805,2,4.7k,$2.61,https://shorturl.at/JcXdU
+"SW1, SW2, SW3, SW4",SW_Cherry_MX_1.00u_PCB,4,SW_Push,$3.3,https://shorturl.at/Q0PwP
+U1,XIAO-ESP32-C3-DIP,1,XIAO-ESP32-C3-SMD,$10.75,https://shorturl.at/O8U6w
+U2,module_bme680,1,module_bme680,$10.1,https://shorturl.at/pgozg
+,,10,Jumper wires,$2.5,https://tinyurl.com/85b8nzcn
+,,4,Keycaps,$1.32,https://rb.gy/105kvj
+,,,PCB Printing,$19.9,
+,Total,,,~$59.9,
