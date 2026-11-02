@@ -82,6 +82,12 @@ The standard xiao ESP32-C3 has 11 usable pins. so to support a high res. TFT dis
 2. UI change:
 The normal clock fails because a delay()  pauses the entire mcu. So shuvabihani uses a non blocking loop and a certain UI states (like CLOCK_VIEW, MENU_SELECT_ALARM, MENU_SET_HOUR, etc.). This thing allows the clock to pulse buzzer, fetch NTP data, read  BME680 , and listen for multi-button  inputs simultaneously without freezing the UI.
 
+## Hardware & Schematic Architecture
+
+- [BLARE Hub KiCad Schematic](https://blare.hackclub.com/docs/pcb-design)
+- Display Backlight (BL): Tied to `GND` (Active-LOW enable).
+- Display Reset (RST): Tied to `3.3V`.
+- I2C Bus: Routed to `D6` (SDA) and `D8` (SCL) for the BME680 sensor.
 
 ## Images:
 ### CAD:
@@ -102,6 +108,8 @@ The normal clock fails because a delay()  pauses the entire mcu. So shuvabihani 
 <img width="678" height="425" alt="Screenshot 2026-10-31 at 7 09 25 PM" src="https://github.com/user-attachments/assets/3539acea-47f6-4a9c-9458-dec75060c467" />
 <img width="717" height="420" alt="Screenshot 2026-10-31 at 7 09 16 PM" src="https://github.com/user-attachments/assets/ab794f22-84cb-4999-9097-59f45d3f75c7" />
 
+
+### Schematic:
 
 
 

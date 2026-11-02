@@ -2087,6 +2087,12 @@
 		(uuid "1de6140f-468f-4a05-8e82-9e6361252f6a")
 	)
 	(junction
+		(at 204.47 33.02)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "7167935a-7c43-4e51-a0dc-a9f31e49abf3")
+	)
+	(junction
 		(at 153.67 43.18)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -2142,13 +2148,13 @@
 	)
 	(wire
 		(pts
-			(xy 196.85 40.64) (xy 196.85 48.26)
+			(xy 196.85 33.02) (xy 204.47 33.02)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "438708a7-0efb-4c1c-9458-cd2209e42e25")
+		(uuid "49d6cd1f-36ca-4f06-8263-a1d7eecca5fd")
 	)
 	(wire
 		(pts
@@ -2202,13 +2208,13 @@
 	)
 	(wire
 		(pts
-			(xy 196.85 48.26) (xy 204.47 48.26)
+			(xy 196.85 40.64) (xy 196.85 33.02)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "942aa218-eed0-42c0-98f8-1362aadaff1a")
+		(uuid "8acff793-8716-4b43-81f4-c11a33f58552")
 	)
 	(wire
 		(pts
@@ -2578,6 +2584,30 @@
 			)
 		)
 	)
+	(global_label "GND"
+		(shape input)
+		(at 204.47 48.26 270)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "579fe1e9-92c9-4e7a-8882-63f3b1584bf5")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 204.47 55.1157 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+	)
 	(global_label "3V3"
 		(shape input)
 		(at 156.21 81.28 180)
@@ -2759,30 +2789,6 @@
 		(uuid "7a7082dc-f62a-4669-a471-06501e3ba3de")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 166.37 119.5228 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-	)
-	(global_label "3V3"
-		(shape input)
-		(at 204.47 48.26 270)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "885b9f13-8b67-4409-a8ae-2642e4205d98")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 204.47 54.7528 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)

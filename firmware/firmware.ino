@@ -15,7 +15,7 @@
 #define tft_MOSI D10
 #define tft_DC D4
 #define tft_CS D5
-#define tft_RST -1 //WIRED TO 3.3V DUE TO PIN SHORTAGE AS BME680 WAS ADDED...
+#define tft_RST -1 //WIRED TO GND DUE TO PIN SHORTAGE AS BME680 WAS ADDED...
 
 
     //BME680 pins
