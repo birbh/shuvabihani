@@ -110,6 +110,8 @@ The normal clock fails because a delay()  pauses the entire mcu. So shuvabihani 
 
 
 ### Schematic:
+<img width="955" height="720" alt="schematic" src="https://github.com/user-attachments/assets/9ac94290-dd05-4407-95af-81b0a489a3f9" />
+
 
 
 
