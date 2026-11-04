@@ -77,7 +77,7 @@ Also you should update your `gmtOffset_sec` in the code so that it matches with 
 The main working principle of the clock is inspired from [Hack Club BLARE](https://blare.hackclub.com/) but i have modified some things and they are:
 
 1. I2C/SPI Pin Constraint:
-The standard xiao ESP32-C3 has 11 usable pins. so to support a high res. TFT display, I2C environmental sensor, 4 mechanical switches, and piezo buzzer,a strict pin economy was required. So the display's Reset and Backlight lines are hardwired to the 3.3V power traces on the PCB. This helped two pins (D6 and D8) to be used as  custom I2C bus for the BME680 without dropping any other components.
+The standard xiao ESP32-C3 has 11 usable pins. so to support a high res. TFT display, I2C environmental sensor, 4 mechanical switches, and piezo buzzer,a strict pin economy was required. So the display's Reset and Backlight lines are hardwired to the 3.3V power trace and GND respectively on the PCB. This helped two pins (D6 and D8) to be used as  custom I2C bus for the BME680 without dropping any other components.
 
 2. UI change:
 The normal clock fails because a delay()  pauses the entire mcu. So shuvabihani uses a non blocking loop and a certain UI states (like CLOCK_VIEW, MENU_SELECT_ALARM, MENU_SET_HOUR, etc.). This thing allows the clock to pulse buzzer, fetch NTP data, read  BME680 , and listen for multi-button  inputs simultaneously without freezing the UI.
@@ -102,7 +102,7 @@ The normal clock fails because a delay()  pauses the entire mcu. So shuvabihani 
 [FUSION 360](https://a360.co/4z7ZS5Q)
 
 ### PCB: 
-<img width="1038" height="665" alt="Screenshot 2026-10-31 at 7 07 07 PM" src="https://github.com/user-attachments/assets/02c22608-3c79-43f7-9e63-371d3ad59cb7" />
+<img width="947" height="591" alt="Screenshot 2026-11-04 at 10 08 55 PM" src="https://github.com/user-attachments/assets/713b9427-03f6-4fce-b9fe-315a4b0a9145" />
 <img width="644" height="434" alt="Screenshot 2026-10-31 at 7 07 53 PM" src="https://github.com/user-attachments/assets/c9ce1a3c-6942-4688-9c38-15938b006dc5" />
 <img width="651" height="428" alt="Screenshot 2026-10-31 at 7 08 11 PM" src="https://github.com/user-attachments/assets/4630f5bd-4089-448a-8731-45eda770f79e" />
 <img width="678" height="425" alt="Screenshot 2026-10-31 at 7 09 25 PM" src="https://github.com/user-attachments/assets/3539acea-47f6-4a9c-9458-dec75060c467" />
